@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>Insertar Usuario</title>
+</h:head>
+
+<h:body>
+
+<h2>Nuevo Usuario</h2>
+
+<h:form>
+    <h:panelGrid columns="2">
+
+        <h:outputLabel value="ID:"/>
+        <h:inputText value="#{userBean.user.id}" />
+
+        <h:outputLabel value="Nombre:"/>
+        <h:inputText value="#{userBean.user.nombre}" />
+
+        <h:outputLabel value="Email:"/>
+        <h:inputText value="#{userBean.user.email}" />
+
+        <h:outputLabel value="Password:"/>
+        <h:inputSecret value="#{userBean.user.password}" />
+
+        <h:outputLabel value="Rol:"/>
+        <h:inputText value="#{userBean.user.rol}" />
+
+        <h:commandButton value="Guardar"
+                         action="#{userBean.guardar}" />
+
+    </h:panelGrid>
+</h:form>
+
+</h:body>
+</html>
