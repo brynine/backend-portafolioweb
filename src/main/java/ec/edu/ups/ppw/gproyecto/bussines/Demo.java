@@ -45,6 +45,7 @@ public class Demo {
             u.setNombre("Bryam Mejia");
             u.setEmail("bryammejia999@gmail.com");
             u.setRol("admin");
+            u.setEspecialidad("Ingeniero");
             u.setActivo(true);
             userDAO.insert(u);
         }

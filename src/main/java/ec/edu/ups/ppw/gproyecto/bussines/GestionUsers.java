@@ -41,6 +41,10 @@ public class GestionUsers {
         return userDAO.findByEmail(email);
     }
     
+    public List<User> getProgramadores() {
+        return userDAO.getProgramadores();
+    }
+    
     public User syncUser(String email, String nombre) {
 
         User user = userDAO.findByEmail(email);
@@ -52,8 +56,8 @@ public class GestionUsers {
         User nuevo = new User();
         
         String nuevoId = "U" + System.currentTimeMillis();
-        nuevo.setId(nuevoId);
         
+        nuevo.setId(nuevoId);
         nuevo.setEmail(email);
         nuevo.setNombre(nombre);
         nuevo.setActivo(true);
@@ -62,6 +66,26 @@ public class GestionUsers {
         userDAO.insert(nuevo);
 
         return nuevo;
+    }
+    
+    public User crearOActualizarProgramador(String email, String nombre, String especialidad) {
+
+        User user = userDAO.findByEmail(email);
+
+        if (user == null) {
+            user = new User();
+            user.setId("U" + System.currentTimeMillis());
+            user.setEmail(email);
+            user.setActivo(true);
+        }
+
+        user.setNombre(nombre);
+        user.setRol("programador");
+        user.setEspecialidad(especialidad);
+
+        userDAO.update(user);
+
+        return user;
     }
 
 

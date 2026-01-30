@@ -25,6 +25,9 @@ public class User {
     @Column(nullable = false)
     private String rol;
     
+    @Column(name = "especialidad")
+    private String especialidad;
+    
     private boolean activo;
     
     @OneToMany(mappedBy = "user")
@@ -67,6 +70,15 @@ public class User {
     public void setRol(String rol) {
         this.rol = rol;
     }
+    
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
 
     public boolean isActivo() {
         return activo;

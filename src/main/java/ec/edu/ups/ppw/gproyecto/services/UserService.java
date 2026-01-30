@@ -129,6 +129,39 @@ public class UserService {
 
         return Response.ok(user).build();
     }
+    
+    @POST
+    @Path("programador")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response crearOAsignarProgramador(User user) {
+    	
+    	System.out.println("EMAIL: " + user.getEmail());
+        System.out.println("NOMBRE: " + user.getNombre());
+        System.out.println("ESPECIALIDAD: " + user.getEspecialidad());
+
+        try {
+        	User u = gu.crearOActualizarProgramador(
+        		    user.getEmail(),
+        		    user.getNombre(),
+        		    user.getEspecialidad()
+        		);
+
+            return Response.ok(u).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("programadores")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarProgramadores() {
+        return Response.ok(gu.getProgramadores()).build();
+    }
 
 
 }

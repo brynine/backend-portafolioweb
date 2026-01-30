@@ -66,5 +66,14 @@ public class UserDAO {
         return em.find(User.class, id);
     }
 
+    public List<User> getProgramadores() {
+        return em.createQuery(
+            "SELECT u FROM User u WHERE u.rol = :rol",
+            User.class
+        )
+        .setParameter("rol", "programador")
+        .getResultList();
+    }
+
 
 }
