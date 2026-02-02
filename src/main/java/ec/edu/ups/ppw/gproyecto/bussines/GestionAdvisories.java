@@ -33,32 +33,38 @@ public class GestionAdvisories {
 
 	public void crearAdvisory(Advisory advisory) throws Exception {
 
-		if (advisory.getId() == null || advisory.getId().isEmpty()) {
-			throw new Exception("ID de la asesoría es obligatorio");
-		}
-		if (advisory.getUser() == null || advisory.getUser().getId() == null) {
-			throw new Exception("Usuario Obligatorio");
-			
-		}
-		if (advisory.getProject() == null || advisory.getProject().getId() == null) {
-			throw new Exception("Proyecto Obligatorio");
-		}
+	    if (advisory.getUser() == null || advisory.getUser().getId() == null) {
+	        throw new Exception("Usuario obligatorio");
+	    }
 
-		User userBD = userDAO.read(advisory.getUser().getId());
-		if (userBD == null) {
-			throw new Exception("Usuario no existe");
-		}
+	    if (advisory.getFecha() == null) {
+	        throw new Exception("La fecha es obligatoria");
+	    }
 
-		Project projectBD = projectDAO.read(advisory.getProject().getId());
-		if (projectBD == null) {
-			throw new Exception("Proyecto no existe");
-		}
+	    if (advisory.getHora() == null || advisory.getHora().isEmpty()) {
+	        throw new Exception("La hora es obligatoria");
+	    }
 
-		advisory.setUser(userBD);
-		advisory.setProject(projectBD);
+	    User userBD = userDAO.read(advisory.getUser().getId());
+	    if (userBD == null) {
+	        throw new Exception("Usuario no existe");
+	    }
 
-		advisoryDAO.insert(advisory);
+	    advisory.setUser(userBD);
+
+	    if (advisory.getProject() != null && advisory.getProject().getId() != null) {
+	        Project projectBD = projectDAO.read(advisory.getProject().getId());
+	        if (projectBD == null) {
+	            throw new Exception("Proyecto no existe");
+	        }
+	        advisory.setProject(projectBD);
+	    }
+
+	    advisory.setEstado("pendiente");
+
+	    advisoryDAO.insert(advisory);
 	}
+
 
 	public void actualizarAdvisory(Advisory advisory) {
 		advisoryDAO.update(advisory);

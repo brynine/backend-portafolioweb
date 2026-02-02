@@ -79,17 +79,22 @@ public class Demo {
         }
 
         // ===================== ADVISORY =====================
-        if (advisoryDAO.read("A1") == null) {
+        if (advisoryDAO.getAll().isEmpty()) {
+
             Advisory a = new Advisory();
-            a.setId("A1");
-            a.setTema("Asesoría inicial");
-            a.setDescripcion("Revisión del alcance");
+
+            a.setMensaje("Revisión del alcance del proyecto");
             a.setFecha(LocalDate.of(2026, 1, 7));
+            a.setHora("10:00");
             a.setEstado("PENDIENTE");
+            a.setCorreoCliente("andresmejiajr10@gmail.com");
             a.setUser(u);
             a.setProject(p);
+
             advisoryDAO.insert(a);
         }
+
+
 
         // ===================== NOTIFICATION =====================
         if (notificationDAO.read("N1") == null) {

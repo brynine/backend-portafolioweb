@@ -11,87 +11,98 @@ import java.time.LocalDate;
 public class Advisory {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(length = 36)
     private String id;
 
     @Column(nullable = false)
-    private String tema;
-
-    @Column(nullable = false)
-    private String descripcion;
+    private String mensaje;
 
     @Column(nullable = false)
     private LocalDate fecha;
+    
+    @Column(nullable = false)
+    private String hora;
 
     @Column(nullable = false)
     private String estado;
+    
+    @Column(nullable = false)
+    private String correoCliente;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "project_id", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "project_id", nullable = true)
     private Project project;
 
     public Advisory() {}
 
-    // ---------------- GETTERS & SETTERS ----------------
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getMensaje() {
+		return mensaje;
+	}
 
-    public String getTema() {
-        return tema;
-    }
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
 
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public String getHora() {
+		return hora;
+	}
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
+	public String getEstado() {
+		return estado;
+	}
 
-    public String getEstado() {
-        return estado;
-    }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+	public String getCorreoCliente() {
+		return correoCliente;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setCorreoCliente(String correoCliente) {
+		this.correoCliente = correoCliente;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public Project getProject() {
-        return project;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+    
 }

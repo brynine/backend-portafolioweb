@@ -66,11 +66,11 @@ public class AdvisoryDAO {
     
     public List<Advisory> findByProgramador(String programadorId) {
         return em.createQuery(
-            "SELECT a FROM Advisory a WHERE a.project.user.id = :id",
+            "SELECT a FROM Advisory a WHERE a.user.id = :id",
             Advisory.class
-        ).setParameter("id", programadorId)
-         .getResultList();
+        )
+        .setParameter("id", programadorId)
+        .getResultList();
     }
-
 
 }
