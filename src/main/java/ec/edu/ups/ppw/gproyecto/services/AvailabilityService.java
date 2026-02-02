@@ -79,4 +79,13 @@ public class AvailabilityService {
         ga.eliminar(id);
         return Response.noContent().build();
     }
+    
+    @GET
+    @Path("user/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByUser(@PathParam("userId") String userId) {
+        List<Availability> lista = ga.getByUser(userId);
+        return Response.ok(lista).build();
+    }
+
 }

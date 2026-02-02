@@ -35,4 +35,9 @@ public class GestionAvailability {
     public void eliminar(String id) {
         dao.delete(id);
     }
+    
+    public List<Availability> getByUser(String userId) {
+        return dao.getByUser(userId);
+    }
+
 }

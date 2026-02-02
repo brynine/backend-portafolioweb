@@ -37,4 +37,14 @@ public class AvailabilityDAO {
             Availability.class
         ).getResultList();
     }
+    
+    public List<Availability> getByUser(String userId) {
+        return em.createQuery(
+            "SELECT a FROM Availability a WHERE a.user.id = :userId",
+            Availability.class
+        )
+        .setParameter("userId", userId)
+        .getResultList();
+    }
+
 }
