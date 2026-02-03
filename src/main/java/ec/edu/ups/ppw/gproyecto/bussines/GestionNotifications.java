@@ -23,12 +23,10 @@ public class GestionNotifications {
         if (n.getUser() == null || n.getUser().getId() == null)
             throw new Exception("Usuario obligatorio");
 
-        // 🔑 Cargar el usuario desde BD
         User userBD = userDAO.read(n.getUser().getId());
         if (userBD == null)
             throw new Exception("Usuario no existe");
 
-        // 🔗 Asociar entidad gestionada
         n.setUser(userBD);
 
         notificationDAO.insert(n);

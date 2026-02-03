@@ -18,7 +18,7 @@ public class Notification {
 @Id
 @GeneratedValue(strategy = GenerationType.UUID)
 @Column(length = 36)
-private String id;
+private String id;	
 
 @Column(nullable = false)
 private String mensaje;

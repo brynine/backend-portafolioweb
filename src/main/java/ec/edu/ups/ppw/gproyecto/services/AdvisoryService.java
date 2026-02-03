@@ -91,5 +91,36 @@
 	    public Response getByUser(@PathParam("id") String id) {
 	        return Response.ok(ga.getAdvisoriesByUser(id)).build();
 	    }
-	
+	    
+	    @PUT
+	    @Path("{id}/confirmar")
+	    public Response confirmar(@PathParam("id") String id) {
+	        try {
+	            ga.confirmarAdvisory(id);
+	            return Response.ok().build();
+	        } catch (Exception e) {
+	            return Response.status(Response.Status.BAD_REQUEST)
+	                    .entity(e.getMessage())
+	                    .build();
+	        }
+	    }
+	    
+	    
+	    @PUT
+	    @Path("{id}/estado")
+	    @Consumes(MediaType.TEXT_PLAIN)
+	    public Response actualizarEstado(
+	            @PathParam("id") String id,
+	            String estado) {
+
+	        Advisory a = ga.getAdvisory(id);
+	        if (a == null)
+	            return Response.status(Response.Status.NOT_FOUND).build();
+
+	        a.setEstado(estado);
+	        ga.actualizarAdvisory(a);
+
+	        return Response.ok().build();
+	    }
+
 	}

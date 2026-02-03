@@ -92,5 +92,40 @@ public class GestionAdvisories {
 	public List<Advisory> getAdvisoriesByProgramador(String programadorId) {
 		return advisoryDAO.findByProgramador(programadorId);
 	}
+	
+	public void confirmarAdvisory(String advisoryId) throws Exception {
+
+	    Advisory a = advisoryDAO.read(advisoryId);
+	    if (a == null) throw new Exception("Asesoría no existe");
+
+	    a.setEstado("CONFIRMADA");
+	    advisoryDAO.update(a);
+
+	    // 🔔 Notificación
+	    Notification n = new Notification();
+	    n.setMensaje("Tu asesoría fue confirmada");
+	    n.setUser(a.getUser()); // usuario externo o programador según tu lógica
+	    n.setLeido(false);
+	    n.setFecha(LocalDate.now());
+
+	    notificationDAO.insert(n);
+	}
+
+	public void rechazarAdvisory(String advisoryId) throws Exception {
+
+	    Advisory a = advisoryDAO.read(advisoryId);
+	    if (a == null) throw new Exception("Asesoría no existe");
+
+	    a.setEstado("RECHAZADA");
+	    advisoryDAO.update(a);
+
+	    Notification n = new Notification();
+	    n.setMensaje("Tu asesoría fue rechazada");
+	    n.setUser(a.getUser());
+	    n.setLeido(false);
+	    n.setFecha(LocalDate.now());
+
+	    notificationDAO.insert(n);
+	}
 
 }

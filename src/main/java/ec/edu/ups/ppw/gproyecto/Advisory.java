@@ -14,6 +14,9 @@ public class Advisory {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(length = 36)
     private String id;
+    
+    @Column(name = "nombre_cliente", nullable = false)
+    private String nombreCliente;
 
     @Column(nullable = false)
     private String mensaje;
@@ -47,6 +50,14 @@ public class Advisory {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getNombreCliente() {
+	    return nombreCliente;
+	}
+
+	public void setNombreCliente(String nombreCliente) {
+	    this.nombreCliente = nombreCliente;
 	}
 
 	public String getMensaje() {
