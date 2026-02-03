@@ -97,15 +97,16 @@ public class Demo {
 
 
         // ===================== NOTIFICATION =====================
-        if (notificationDAO.read("N1") == null) {
+        if (notificationDAO.getAll().isEmpty()) {
             Notification n = new Notification();
-            n.setId("N1");
-            n.setMensaje("Tienes una nueva asesoría asignada");
-            n.setFecha(LocalDate.of(2026, 1, 7));
+            n.setMensaje("Notificación de prueba");
+            n.setUser(u); // programador
             n.setLeido(false);
-            n.setUser(u);
+            n.setFecha(LocalDate.now());
+
             notificationDAO.insert(n);
         }
+
 
         // ===================== AVAILABILITY =====================
         if (availabilityDAO.read("AV1") == null) {

@@ -163,5 +163,4 @@ public class UserService {
         return Response.ok(gu.getProgramadores()).build();
     }
 
-
 }

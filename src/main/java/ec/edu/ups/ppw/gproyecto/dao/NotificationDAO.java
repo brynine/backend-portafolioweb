@@ -39,4 +39,22 @@ public List<Notification> getAll() {
     ).getResultList();
 }
 
+public List<Notification> findByUser(String userId) {
+    return em.createQuery(
+        "SELECT n FROM Notification n WHERE n.user.id = :userId ORDER BY n.fecha DESC",
+        Notification.class
+    )
+    .setParameter("userId", userId)
+    .getResultList();
+}
+
+public void marcarLeido(String id) {
+    Notification n = read(id);
+    if (n != null) {
+        n.setLeido(true);
+        em.merge(n);
+    }
+}
+
+
 }

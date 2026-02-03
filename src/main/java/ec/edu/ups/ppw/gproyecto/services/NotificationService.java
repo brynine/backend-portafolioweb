@@ -69,4 +69,18 @@ public class NotificationService {
         gn.eliminar(id);
         return Response.noContent().build();
     }
+    
+    @GET
+    @Path("user/{id}")
+    public Response getByUser(@PathParam("id") String userId) {
+        return Response.ok(gn.getByUser(userId)).build();
+    }
+
+    @PUT
+    @Path("{id}/leido")
+    public Response marcarLeido(@PathParam("id") String id) {
+        gn.marcarLeido(id);
+        return Response.noContent().build();
+    }
+
 }
