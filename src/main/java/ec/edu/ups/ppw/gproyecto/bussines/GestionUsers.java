@@ -21,17 +21,58 @@ public class GestionUsers {
         userDAO.insert(user);
     }
 
-    public void actualizarUser(User user) {
-        userDAO.update(user);
+    public User actualizarUser(User user) {
+
+        User existente = userDAO.read(user.getId());
+
+        if (existente == null) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+
+        if (user.getNombre() != null)
+            existente.setNombre(user.getNombre());
+
+        if (user.getEspecialidad() != null)
+            existente.setEspecialidad(user.getEspecialidad());
+
+        if (user.getBio() != null)
+            existente.setBio(user.getBio());
+
+        if (user.getGithub() != null)
+            existente.setGithub(user.getGithub());
+
+        if (user.getLinkedin() != null)
+            existente.setLinkedin(user.getLinkedin());
+
+        if (user.getInstagram() != null)
+            existente.setInstagram(user.getInstagram());
+
+        if (user.getSitioWeb() != null)
+            existente.setSitioWeb(user.getSitioWeb());
+
+        userDAO.update(existente);
+        return existente;
     }
+    
+
 
     public User getUser(String id) {
         return userDAO.read(id);
     }
 
     public void eliminarUser(String id) {
+        User user = userDAO.read(id);
+        if (user == null) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+
+        // 👇 eliminar relaciones primero
+        user.getProjects().clear();
+        user.getAdvisories().clear();
+
         userDAO.delete(id);
     }
+
 
     public List<User> getUsers() {
         return userDAO.getAll();

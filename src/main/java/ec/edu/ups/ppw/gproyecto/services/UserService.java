@@ -71,15 +71,17 @@ public class UserService {
             User user) {
 
         try {
-            user.setId(id); // 🔑 CLAVE
-            gu.actualizarUser(user);
-            return Response.ok(user).build();
+            user.setId(id);
+            User actualizado = gu.actualizarUser(user);
+            return Response.ok(actualizado).build();
         } catch (Exception e) {
+            e.printStackTrace(); // 👈 importante para debug
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage())
                     .build();
         }
     }
+
 
     // ================= ELIMINAR =================
     @DELETE
