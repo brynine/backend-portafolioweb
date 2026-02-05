@@ -28,7 +28,7 @@ public class PersonaService {
 	@Produces("application/json")
 	public Response getListarPersonas(){
 		List<Persona> listado = gp.getPersonas();
-		return Response.ok(listado).build(); //status code 200
+		return Response.ok(listado).build();
 	}
 	
 	@GET
@@ -118,7 +118,7 @@ public class PersonaService {
 	        persona.setCedula(cedula);
 	        gp.actualizarPersona(persona);
 
-	        return Response.ok(persona).build(); // 200 OK
+	        return Response.ok(persona).build();
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -152,7 +152,7 @@ public class PersonaService {
 
 	        gp.eliminarPersona(cedula);
 
-	        return Response.noContent().build(); // 204
+	        return Response.noContent().build();
 
 	    } catch (Exception e) {
 	        e.printStackTrace();

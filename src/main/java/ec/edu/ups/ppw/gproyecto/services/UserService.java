@@ -14,14 +14,12 @@ public class UserService {
     @Inject
     private GestionUsers gu;
 
-    // ================= LISTAR =================
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listar() {
         return Response.ok(gu.getUsers()).build();
     }
 
-    // ================= BUSCAR POR ID =================
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +36,6 @@ public class UserService {
         return Response.ok(u).build();
     }
 
-    // ================= CREAR =================
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +58,6 @@ public class UserService {
                 .build();
     }
 
-    // ================= ACTUALIZAR =================
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -75,30 +71,26 @@ public class UserService {
             User actualizado = gu.actualizarUser(user);
             return Response.ok(actualizado).build();
         } catch (Exception e) {
-            e.printStackTrace(); // 👈 importante para debug
+            e.printStackTrace(); 
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage())
                     .build();
         }
     }
 
-
-    // ================= ELIMINAR =================
     @DELETE
     @Path("{id}")
     public Response eliminar(@PathParam("id") String id) {
         try {
             gu.eliminarUser(id);
-            return Response.noContent().build(); // 204
+            return Response.noContent().build(); 
         } catch (RuntimeException e) {
-            return Response.status(Response.Status.CONFLICT) // 409
+            return Response.status(Response.Status.CONFLICT) 
                     .entity(e.getMessage())
                     .build();
         }
     }
 
-    
- // ================= BUSCAR POR EMAIL =================
     @GET
     @Path("email/{email}")
     @Produces(MediaType.APPLICATION_JSON)

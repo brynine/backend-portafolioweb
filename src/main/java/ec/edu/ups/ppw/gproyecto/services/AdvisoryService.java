@@ -151,6 +151,4 @@
 	        return Response.ok(ga.getTotalAsesorias()).build();
 	    }
 
-
-
 	}

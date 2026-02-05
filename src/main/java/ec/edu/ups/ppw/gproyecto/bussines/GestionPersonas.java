@@ -41,5 +41,4 @@ public class GestionPersonas {
 	    daoPersona.delete(cedula);
 	}
 
-
 }

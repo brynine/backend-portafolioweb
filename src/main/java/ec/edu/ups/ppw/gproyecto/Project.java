@@ -53,8 +53,6 @@ public class Project {
 
     public Project() {}
 
-    // -------- GETTERS & SETTERS --------
-
     public String getId() {
         return id;
     }

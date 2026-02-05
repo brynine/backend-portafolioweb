@@ -23,12 +23,10 @@ public class GestionProjects {
     @Inject
     private GestionUsers gestionUsers;
 
-    // LISTAR
     public List<Project> getProjects() {
         return projectDAO.getAll();
     }
 
-    // BUSCAR POR ID
     public Project getProject(String id) {
         return projectDAO.read(id);
     }
@@ -53,7 +51,6 @@ public class GestionProjects {
     }
 
 
-    // ACTUALIZAR
     public void actualizarProject(Project project) {
         projectDAO.update(project);
     }

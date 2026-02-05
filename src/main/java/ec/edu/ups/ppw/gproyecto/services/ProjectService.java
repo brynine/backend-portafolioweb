@@ -14,14 +14,12 @@ public class ProjectService {
     @Inject
     private GestionProjects gp;
 
-    // ================= LISTAR =================
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listar() {
         return Response.ok(gp.getProjects()).build();
     }
 
-    // ================= BUSCAR POR ID =================
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +36,6 @@ public class ProjectService {
         return Response.ok(p).build();
     }
 
-    // ================= CREAR =================
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +58,6 @@ public class ProjectService {
                 .build();
     }
 
-    // ================= ACTUALIZAR =================
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -76,7 +72,6 @@ public class ProjectService {
         return Response.ok(project).build();
     }
 
-    // ================= ELIMINAR =================
     @DELETE
     @Path("{id}")
     public Response eliminar(@PathParam("id") String id) {
@@ -84,14 +79,12 @@ public class ProjectService {
             gp.eliminarProject(id);
             return Response.noContent().build();
         } catch (RuntimeException e) {
-            return Response.status(Response.Status.CONFLICT) // 409
+            return Response.status(Response.Status.CONFLICT)
                     .entity(e.getMessage())
                     .build();
         }
     }
 
-    
- // ================= PROYECTOS POR USUARIO =================
     @GET
     @Path("/user/{uid}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -99,7 +92,5 @@ public class ProjectService {
 
         return Response.ok(gp.getProjectsByUser(uid)).build();
     }
-    
-    
-
+       
 }

@@ -32,7 +32,6 @@ public class ProjectDAO {
         }
     }
     
-    // Devuelve la lista de proyectos
     public List<Project> listarProjects() {
         List<Project> lista = em.createQuery("SELECT p FROM Project p", Project.class)
                                 .getResultList();

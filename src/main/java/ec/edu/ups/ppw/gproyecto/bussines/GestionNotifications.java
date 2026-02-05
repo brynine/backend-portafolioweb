@@ -8,6 +8,8 @@ import ec.edu.ups.ppw.gproyecto.dao.NotificationDAO;
 import ec.edu.ups.ppw.gproyecto.dao.UserDAO;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 @Stateless
@@ -18,6 +20,9 @@ public class GestionNotifications {
 
     @Inject
     private UserDAO userDAO;
+    
+    @PersistenceContext
+    private EntityManager em;
 
     public void crear(Notification n) throws Exception {
 
@@ -57,6 +62,18 @@ public class GestionNotifications {
     @Transactional
     public void marcarLeido(String id) {
         notificationDAO.marcarLeido(id);
+    }
+    
+    public boolean existeRecordatorio(String advisoryId) {
+
+        Long count = em.createQuery(
+            "SELECT COUNT(n) FROM Notification n WHERE n.advisoryId = :aid",
+            Long.class
+        )
+        .setParameter("aid", advisoryId)
+        .getSingleResult();
+
+        return count > 0;
     }
 
 }

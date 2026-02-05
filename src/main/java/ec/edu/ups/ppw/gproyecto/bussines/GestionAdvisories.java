@@ -13,6 +13,8 @@ import ec.edu.ups.ppw.gproyecto.dao.ProjectDAO;
 import ec.edu.ups.ppw.gproyecto.dao.UserDAO;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Stateless
 public class GestionAdvisories {
@@ -28,6 +30,9 @@ public class GestionAdvisories {
 	
 	@Inject
 	private NotificationDAO notificationDAO;
+	
+	@PersistenceContext
+    private EntityManager em;
 
 	public List<Advisory> getAdvisories() {
 		return advisoryDAO.getAll();
@@ -160,6 +165,14 @@ public class GestionAdvisories {
 	public Long getTotalAsesorias() {
 	    return advisoryDAO.countAll();
 	}
-
+	
+	public List<Advisory> getAdvisoriesConfirmadas() {
+	    return em.createQuery(
+	        "SELECT a FROM Advisory a WHERE a.estado = :estado",
+	        Advisory.class
+	    )
+	    .setParameter("estado", "CONFIRMADA")
+	    .getResultList();
+	}
 
 }

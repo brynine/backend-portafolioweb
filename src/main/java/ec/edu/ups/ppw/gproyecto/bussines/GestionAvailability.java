@@ -21,15 +21,12 @@ public class GestionAvailability {
 
     public void crear(Availability a) throws Exception {
 
-        // 1️⃣ Validación básica
         if (a.getUser() == null || a.getUser().getId() == null) {
             throw new Exception("Debe tener usuario");
         }
 
-        // 2️⃣ Generar ID (OBLIGATORIO)
         a.setId("A" + System.currentTimeMillis());
 
-        // 3️⃣ Reatachar User al contexto JPA
         User user = userDAO.read(a.getUser().getId());
 
         if (user == null) {
@@ -38,10 +35,8 @@ public class GestionAvailability {
 
         a.setUser(user);
 
-        // 4️⃣ Persistir
         dao.insert(a);
     }
-
 
     public List<Availability> getAll() {
         return dao.getAll();

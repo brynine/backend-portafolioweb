@@ -67,7 +67,6 @@ public class GestionUsers {
             throw new RuntimeException("Usuario no encontrado");
         }
 
-        // 🔒 REGLA DE NEGOCIO
         if (user.getAdvisories() != null && !user.getAdvisories().isEmpty()) {
             throw new RuntimeException(
                 "No se puede eliminar el programador porque tiene asesorías asociadas"
@@ -76,7 +75,6 @@ public class GestionUsers {
 
         userDAO.delete(user);
     }
-
 
     public List<User> getUsers() {
         return userDAO.getAll();
@@ -132,6 +130,5 @@ public class GestionUsers {
 
         return user;
     }
-
 
 }
