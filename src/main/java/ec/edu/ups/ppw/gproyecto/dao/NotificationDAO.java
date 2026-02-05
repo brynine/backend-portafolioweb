@@ -59,5 +59,4 @@ public void marcarLeido(String id) {
     n.setLeido(true);
 }
 
-
 }
