@@ -6,6 +6,7 @@ import ec.edu.ups.ppw.gproyecto.Notification;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 @Stateless
 public class NotificationDAO {
@@ -48,12 +49,14 @@ public List<Notification> findByUser(String userId) {
     .getResultList();
 }
 
+@Transactional
 public void marcarLeido(String id) {
-    Notification n = read(id);
-    if (n != null) {
-        n.setLeido(true);
-        em.merge(n);
+    Notification n = em.find(Notification.class, id);
+    if (n == null) {
+        throw new RuntimeException("Notificación no encontrada");
     }
+
+    n.setLeido(true);
 }
 
 

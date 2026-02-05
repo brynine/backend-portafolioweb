@@ -87,16 +87,16 @@ public class UserService {
     @DELETE
     @Path("{id}")
     public Response eliminar(@PathParam("id") String id) {
-
         try {
             gu.eliminarUser(id);
-            return Response.noContent().build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND)
+            return Response.noContent().build(); // 204
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.CONFLICT) // 409
                     .entity(e.getMessage())
                     .build();
         }
     }
+
     
  // ================= BUSCAR POR EMAIL =================
     @GET

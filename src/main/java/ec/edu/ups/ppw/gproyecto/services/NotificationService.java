@@ -79,8 +79,13 @@ public class NotificationService {
     @PUT
     @Path("{id}/leido")
     public Response marcarLeido(@PathParam("id") String id) {
-        gn.marcarLeido(id);
-        return Response.noContent().build();
+        try {
+            gn.marcarLeido(id);
+            return Response.noContent().build();
+        } catch (Exception e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
+
 
 }

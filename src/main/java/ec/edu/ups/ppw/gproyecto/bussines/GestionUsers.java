@@ -6,6 +6,7 @@ import ec.edu.ups.ppw.gproyecto.User;
 import ec.edu.ups.ppw.gproyecto.dao.UserDAO;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @Stateless
 public class GestionUsers {
@@ -53,24 +54,27 @@ public class GestionUsers {
         userDAO.update(existente);
         return existente;
     }
-    
-
 
     public User getUser(String id) {
         return userDAO.read(id);
     }
 
+    @Transactional
     public void eliminarUser(String id) {
+
         User user = userDAO.read(id);
         if (user == null) {
             throw new RuntimeException("Usuario no encontrado");
         }
 
-        // 👇 eliminar relaciones primero
-        user.getProjects().clear();
-        user.getAdvisories().clear();
+        // 🔒 REGLA DE NEGOCIO
+        if (user.getAdvisories() != null && !user.getAdvisories().isEmpty()) {
+            throw new RuntimeException(
+                "No se puede eliminar el programador porque tiene asesorías asociadas"
+            );
+        }
 
-        userDAO.delete(id);
+        userDAO.delete(user);
     }
 
 

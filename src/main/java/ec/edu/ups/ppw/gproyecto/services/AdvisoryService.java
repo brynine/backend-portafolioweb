@@ -33,7 +33,7 @@
 	
 	        return Response.ok(a).build();
 	    }
-	
+	    
 	    @POST
 	    @Consumes(MediaType.APPLICATION_JSON)
 	    @Produces(MediaType.APPLICATION_JSON)
@@ -122,5 +122,35 @@
 
 	        return Response.ok().build();
 	    }
+	    
+	    @GET
+	    @Path("stats/programadores")
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response asesoriasPorProgramador() {
+	        return Response.ok(ga.getAsesoriasPorProgramador()).build();
+	    }
+
+	    @GET
+	    @Path("stats/estado")
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response asesoriasPorEstado() {
+	        return Response.ok(ga.getAsesoriasPorEstado()).build();
+	    }
+
+	    @GET
+	    @Path("stats/mes")
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response asesoriasPorMes() {
+	        return Response.ok(ga.getAsesoriasPorMes()).build();
+	    }
+	    
+	    @GET
+	    @Path("stats/total")
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response totalAsesorias() {
+	        return Response.ok(ga.getTotalAsesorias()).build();
+	    }
+
+
 
 	}

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "projects")
 public class Project {
@@ -40,8 +42,14 @@ public class Project {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Transient
-    private List<Advisory> advisories;
+    @OneToMany(
+    	    mappedBy = "project",
+    	    cascade = CascadeType.ALL,
+    	    orphanRemoval = true
+    	)
+    	@JsonIgnore
+    	private List<Advisory> advisories;
+
 
     public Project() {}
 

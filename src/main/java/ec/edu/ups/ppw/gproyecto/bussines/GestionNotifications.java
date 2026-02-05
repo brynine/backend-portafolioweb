@@ -8,6 +8,7 @@ import ec.edu.ups.ppw.gproyecto.dao.NotificationDAO;
 import ec.edu.ups.ppw.gproyecto.dao.UserDAO;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @Stateless
 public class GestionNotifications {
@@ -53,9 +54,9 @@ public class GestionNotifications {
         return notificationDAO.findByUser(userId);
     }
     
+    @Transactional
     public void marcarLeido(String id) {
         notificationDAO.marcarLeido(id);
     }
-
 
 }

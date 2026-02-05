@@ -72,5 +72,60 @@ public class AdvisoryDAO {
         .setParameter("id", programadorId)
         .getResultList();
     }
+    
+    public Long countByProject(String projectId) {
+        return em.createQuery(
+            "SELECT COUNT(a) FROM Advisory a WHERE a.project.id = :pid",
+            Long.class
+        )
+        .setParameter("pid", projectId)
+        .getSingleResult();
+    }
+    
+    public List<Object[]> getAsesoriasPorProgramador() {
+        return em.createQuery(
+            "SELECT a.user.nombre, COUNT(a) " +
+            "FROM Advisory a GROUP BY a.user.nombre",
+            Object[].class
+        ).getResultList();
+    }
+
+    public List<Object[]> getAsesoriasPorEstado() {
+        return em.createQuery(
+            "SELECT a.estado, COUNT(a) " +
+            "FROM Advisory a GROUP BY a.estado",
+            Object[].class
+        ).getResultList();
+    }
+
+    public List<Object[]> getAsesoriasPorMes() {
+        return em.createQuery(
+            "SELECT FUNCTION('MONTH', a.fecha), COUNT(a) " +
+            "FROM Advisory a GROUP BY FUNCTION('MONTH', a.fecha) " +
+            "ORDER BY FUNCTION('MONTH', a.fecha)",
+            Object[].class
+        ).getResultList();
+    }
+
+    public Long countAll() {
+        return em.createQuery(
+            "SELECT COUNT(a) FROM Advisory a",
+            Long.class
+        ).getSingleResult();
+    }
+
+    public List<Object[]> countByEstado() {
+        return em.createQuery(
+            "SELECT a.estado, COUNT(a) FROM Advisory a GROUP BY a.estado",
+            Object[].class
+        ).getResultList();
+    }
+
+    public List<Object[]> countByProgramador() {
+        return em.createQuery(
+            "SELECT a.user.nombre, COUNT(a) FROM Advisory a GROUP BY a.user.nombre",
+            Object[].class
+        ).getResultList();
+    }
 
 }

@@ -5,15 +5,20 @@ import java.util.List;
 
 import ec.edu.ups.ppw.gproyecto.Project;
 import ec.edu.ups.ppw.gproyecto.User;
+import ec.edu.ups.ppw.gproyecto.dao.AdvisoryDAO;
 import ec.edu.ups.ppw.gproyecto.dao.ProjectDAO;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @Stateless
 public class GestionProjects {
 
     @Inject
     private ProjectDAO projectDAO;
+    
+    @Inject
+    private AdvisoryDAO advisoryDAO;
 
     @Inject
     private GestionUsers gestionUsers;
@@ -53,8 +58,21 @@ public class GestionProjects {
         projectDAO.update(project);
     }
 
-    // ELIMINAR
+    @Transactional
     public void eliminarProject(String id) {
+
+        Project project = projectDAO.read(id);
+        if (project == null) {
+            throw new RuntimeException("Proyecto no encontrado");
+        }
+
+        Long total = advisoryDAO.countByProject(id);
+        if (total > 0) {
+            throw new RuntimeException(
+                "No se puede eliminar el proyecto porque tiene asesorías asociadas"
+            );
+        }
+
         projectDAO.delete(id);
     }
 

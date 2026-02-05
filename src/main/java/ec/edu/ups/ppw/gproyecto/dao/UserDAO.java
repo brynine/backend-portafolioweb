@@ -26,12 +26,10 @@ public class UserDAO {
         return em.find(User.class, id);
     }
 
-    public void delete(String id) {
-        User user = em.find(User.class, id);
-        if (user != null) {
-            em.remove(user);
-        }
+    public void delete(User user) {
+        em.remove(em.contains(user) ? user : em.merge(user));
     }
+
 
     public void listarUsers() {
         List<User> lista = em
@@ -68,12 +66,18 @@ public class UserDAO {
 
     public List<User> getProgramadores() {
         return em.createQuery(
-            "SELECT u FROM User u WHERE u.rol = :rol",
+            "SELECT u FROM User u WHERE u.rol = 'programador'",
             User.class
-        )
-        .setParameter("rol", "programador")
-        .getResultList();
+        ).getResultList();
     }
 
+    public long countAdvisoriesByUser(String userId) {
+        return em.createQuery(
+            "SELECT COUNT(a) FROM Advisory a WHERE a.user.id = :uid",
+            Long.class
+        )
+        .setParameter("uid", userId)
+        .getSingleResult();
+    }
 
 }

@@ -80,10 +80,16 @@ public class ProjectService {
     @DELETE
     @Path("{id}")
     public Response eliminar(@PathParam("id") String id) {
-
-        gp.eliminarProject(id);
-        return Response.noContent().build();
+        try {
+            gp.eliminarProject(id);
+            return Response.noContent().build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.CONFLICT) // 409
+                    .entity(e.getMessage())
+                    .build();
+        }
     }
+
     
  // ================= PROYECTOS POR USUARIO =================
     @GET

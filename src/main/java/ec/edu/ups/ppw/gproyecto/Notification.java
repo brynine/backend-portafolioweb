@@ -33,6 +33,10 @@ private boolean leido;
 @JoinColumn(name = "user_id")
 private User user;
 
+@Column(name = "advisory_id", length = 36)
+private String advisoryId;
+
+
 public Notification() {
 }
 
@@ -75,5 +79,14 @@ public User getUser() {
 public void setUser(User user) {
     this.user = user;
 }
+
+public String getAdvisoryId() {
+    return advisoryId;
+}
+
+public void setAdvisoryId(String advisoryId) {
+    this.advisoryId = advisoryId;
+}
+
 
 }

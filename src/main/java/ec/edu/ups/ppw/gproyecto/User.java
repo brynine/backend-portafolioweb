@@ -67,6 +67,23 @@ public class User {
     	@JsonIgnore
     	private List<Advisory> advisories;
 
+    	@OneToMany(
+    	    mappedBy = "user",
+    	    cascade = CascadeType.ALL,
+    	    orphanRemoval = true
+    	)
+    	@JsonIgnore
+    	private List<Availability> availabilities;
+
+    	@OneToMany(
+    	    mappedBy = "user",
+    	    cascade = CascadeType.ALL,
+    	    orphanRemoval = true
+    	)
+    	@JsonIgnore
+    	private List<Notification> notifications;
+
+
 
     public User() {
     }
@@ -111,8 +128,6 @@ public class User {
         this.especialidad = especialidad;
     }
     
-    
-
     public String getBio() {
 		return bio;
 	}
@@ -176,4 +191,22 @@ public class User {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+	public List<Availability> getAvailabilities() {
+		return availabilities;
+	}
+
+	public void setAvailabilities(List<Availability> availabilities) {
+		this.availabilities = availabilities;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+    
+    
 }

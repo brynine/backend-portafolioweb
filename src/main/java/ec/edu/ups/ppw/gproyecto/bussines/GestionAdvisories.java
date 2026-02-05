@@ -57,18 +57,20 @@ public class GestionAdvisories {
 	    advisory.setProject(projectBD);
 	    advisory.setEstado("PENDIENTE");
 
-	    // 1️⃣ Guardar asesoría
 	    advisoryDAO.insert(advisory);
+	    
+	    String advisoryId = advisory.getId();
 
-	    // 2️⃣ Crear notificación 🔔
 	    Notification n = new Notification();
 	    n.setMensaje(
-	        "Nueva solicitud de asesoría para el " 
+	        "Nueva solicitud de asesoría para el " 	
 	        + advisory.getFecha() + " a las " + advisory.getHora()
 	    );
 	    n.setUser(userBD);
 	    n.setLeido(false);
 	    n.setFecha(LocalDate.now());
+	    
+	    n.setAdvisoryId(advisoryId);
 
 	    notificationDAO.insert(n);
 	}
@@ -101,12 +103,14 @@ public class GestionAdvisories {
 	    a.setEstado("CONFIRMADA");
 	    advisoryDAO.update(a);
 
-	    // 🔔 Notificación
 	    Notification n = new Notification();
 	    n.setMensaje("Tu asesoría fue confirmada");
-	    n.setUser(a.getUser()); // usuario externo o programador según tu lógica
+	    n.setUser(a.getUser()); 
 	    n.setLeido(false);
 	    n.setFecha(LocalDate.now());
+	    n.setAdvisoryId(a.getId()); 
+
+
 
 	    notificationDAO.insert(n);
 	}
@@ -124,8 +128,38 @@ public class GestionAdvisories {
 	    n.setUser(a.getUser());
 	    n.setLeido(false);
 	    n.setFecha(LocalDate.now());
+	    n.setAdvisoryId(a.getId()); 
 
 	    notificationDAO.insert(n);
 	}
+	
+	public List<Object[]> getAsesoriasPorProgramador() {
+	    return advisoryDAO.getAsesoriasPorProgramador();
+	}
+
+	public List<Object[]> getAsesoriasPorEstado() {
+	    return advisoryDAO.getAsesoriasPorEstado();
+	}
+
+	public List<Object[]> getAsesoriasPorMes() {
+	    return advisoryDAO.getAsesoriasPorMes();
+	}
+
+	public Long totalAsesorias() {
+	    return advisoryDAO.countAll();
+	}
+
+	public List<Object[]> asesoriasPorEstado() {
+	    return advisoryDAO.countByEstado();
+	}
+
+	public List<Object[]> asesoriasPorProgramador() {
+	    return advisoryDAO.countByProgramador();
+	}
+
+	public Long getTotalAsesorias() {
+	    return advisoryDAO.countAll();
+	}
+
 
 }
