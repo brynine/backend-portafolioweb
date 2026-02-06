@@ -33,9 +33,8 @@ public class Advisory {
     @Column(nullable = false)
     private String correoCliente;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
     @ManyToOne(optional = true)
